@@ -37,22 +37,22 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Category $category)
+    public function show($id)
     {
         // On retourne les informations de l'utilisateur en JSON
-        return response()->json($category);
+        return Category::find($id);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, $id)
     {
         $this->validate($request, [
             'name' => 'required|max:100',
         ]);
 
-        //we created a new category
+        $category = Category::find($id);
         $category->update($request->all());
 
         return response()->json([
@@ -63,8 +63,9 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Category $category)
+    public function destroy($id)
     {
+        $category = Category::find($id);
         $category->delete();
         return response()->json([
             'status' => 'Supprimer avec succès'

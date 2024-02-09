@@ -37,21 +37,23 @@ class PlaceController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Place $place)
+    public function show($id)
     {
-        return response()->json($place);
+        // dd($id);
+        return Place::find($id);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Place $place)
+    public function update(Request $request, $id)
     {
         $this->validate($request, [
             'namePlace' => 'required|max:100',
             'longitudeLatitude' => 'required',
         ]);
 
+        $place = Place::find($id);
         $place->update($request->all());
 
         return response()->json([
@@ -63,8 +65,9 @@ class PlaceController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Place $place)
+    public function destroy($id)
     {
+        $place = Place::find($id);
         $place->delete();
         return response()->json([
             'status' => 'Supprimer avec succès'

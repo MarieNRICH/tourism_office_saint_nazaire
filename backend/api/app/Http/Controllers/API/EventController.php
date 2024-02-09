@@ -39,16 +39,15 @@ class EventController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Event $event)
+    public function show($id)
     {
-        // On retourne les informations de l'utilisateur en JSON
-        return response()->json($event);
+        return Event::find($id);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Event $event)
+    public function update(Request $request, $id)
     {
         $this->validate($request, [
             'title' => 'required|max:100',
@@ -57,6 +56,7 @@ class EventController extends Controller
             'status' => 'required',
         ]);
 
+        $event = Event::find($id);
         $event->update($request->all());
 
         return response()->json([
@@ -67,8 +67,9 @@ class EventController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Event $event)
+    public function destroy($id)
     {
+        $event = Event::find($id);
         $event->delete();
         return response()->json([
             'status' => 'Supprimer avec succès'
