@@ -53,6 +53,7 @@ class CategoryController extends Controller
         ]);
 
         $category = Category::find($id);
+        // dd($category);
         $category->update($request->all());
 
         return response()->json([

@@ -27,7 +27,21 @@ class PlaceController extends Controller
             'longitudeLatitude' => 'required',
         ]);
 
-        $place = Place::create($request->all());
+
+        $filename = "";
+        if ($request->hasFile('photoPlace')) {
+            $filenameWithExt = $request->file('photoPlace')->getClientOriginalName();
+            $filenameWithoutExt = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $extension = $request->file('photoPlace')->getClientOriginalExtension();
+            $filename = $filenameWithoutExt . '_' . time() . '.' . $extension;
+            $path = $request->file('photoPlace')->storeAs('public/uploads', $filename);
+        } else {
+            $filename = Null;
+        }
+
+
+        $place = Place::create(array_merge($request->all(), ['photoPlace' => $filename]));
+
         return response()->json([
             'status' => 'Success',
             'data' => $place,
