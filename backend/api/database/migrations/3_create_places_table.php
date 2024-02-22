@@ -14,8 +14,15 @@ return new class extends Migration
         Schema::create('places', function (Blueprint $table) {
             $table->id();
             $table->string('namePlace');
-            $table->decimal('long',10,7);
-            $table->decimal('lat',10,7);
+            $table->decimal('long', 10, 7);
+            $table->decimal('lat', 10, 7);
+            $table->text('description');
+
+            $table->bigInteger('category_id')->unsigned();
+            $table->foreign('category_id')
+                ->references('id')
+                ->on('categories');
+
             $table->timestamps();
         });
     }

@@ -24,10 +24,24 @@ class EventController extends Controller
     {
         $request->validate([
             'title' => 'required|max:100',
+            // 'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
             'detail' => 'required',
             'dateEvent' => 'required',
             'status' => 'required',
+            'place_id' => 'required',
         ]);
+
+        $filename = "";
+        if ($request->hasFile('image')) {
+            $filenameWithExt = $request->file('image')->getClientOriginalName();
+            $filenameWithoutExt = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $extension = $request->file('image')->getClientOriginalExtension();
+            $filename = $filenameWithoutExt . '_' . time() . '.' . $extension;
+            $path = $request->file('image')->storeAs('public/storage/uploads', $filename);
+            // dd($filename);
+        } else {
+            $filename = Null;
+        }
 
         $event = Event::create($request->all());
         return response()->json([
@@ -52,8 +66,10 @@ class EventController extends Controller
         $this->validate($request, [
             'title' => 'required|max:100',
             'detail' => 'required',
+            'image' => 'required',
             'dateEvent' => 'required',
-            'status' => 'required',
+            'detail' => 'required',
+            'place_id' => 'required',
         ]);
 
         $event = Event::find($id);

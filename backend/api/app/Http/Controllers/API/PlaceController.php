@@ -24,9 +24,12 @@ class PlaceController extends Controller
     {
         $request->validate([
             'namePlace' => 'required|max:100',
-            'longitudeLatitude' => 'required',
+            'long' => 'required',
+            'lat' => 'required',
+            // 'photoPlace' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
+            'description' => 'required',
+            'category_id' => 'required',
         ]);
-
 
         $filename = "";
         if ($request->hasFile('photoPlace')) {
@@ -34,7 +37,8 @@ class PlaceController extends Controller
             $filenameWithoutExt = pathinfo($filenameWithExt, PATHINFO_FILENAME);
             $extension = $request->file('photoPlace')->getClientOriginalExtension();
             $filename = $filenameWithoutExt . '_' . time() . '.' . $extension;
-            $path = $request->file('photoPlace')->storeAs('public/uploads', $filename);
+            $path = $request->file('photoPlace')->storeAs('public/storage/uploads', $filename);
+            // dd($filename);
         } else {
             $filename = Null;
         }
@@ -64,7 +68,12 @@ class PlaceController extends Controller
     {
         $this->validate($request, [
             'namePlace' => 'required|max:100',
-            'longitudeLatitude' => 'required',
+            'long' => 'required',
+            'lat' => 'required',
+            // 'photoPlace' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
+            'description' => 'required',
+            'category_id' => 'required',
+
         ]);
 
         $place = Place::find($id);
@@ -79,9 +88,9 @@ class PlaceController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy(Place $place)
     {
-        $place = Place::find($id);
+        // $place = Place::find($id);
         $place->delete();
         return response()->json([
             'status' => 'Supprimer avec succès'

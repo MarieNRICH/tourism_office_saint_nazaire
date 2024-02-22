@@ -18,9 +18,13 @@ return new class extends Migration
             $table->text('detail');
             $table->date('dateEvent');
             $table->string('status');
-            $table->timestamps();
 
-            
+            $table->bigInteger('place_id')->unsigned();
+            $table->foreign('place_id')
+                ->references('id')
+                ->on('places');
+
+            $table->timestamps();
         });
     }
 

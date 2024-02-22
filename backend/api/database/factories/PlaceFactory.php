@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Place;
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,9 +20,11 @@ class PlaceFactory extends Factory
     {
         return [
             'namePlace' => $this->faker->words(2, true),
-            'long' => $this->faker->longitude(90 , -90),
+            'long' => $this->faker->longitude(90, -90),
             'lat' => $this->faker->latitude(),
-            'photoPlace' => $this->faker->imageUrl(null, 640, 480)
+            'photoPlace' => $this->faker->imageUrl(null, 640, 480),
+            'description' => $this->faker->text(),
+            'category_id'  => $this->faker->numberBetween(1, 10),
         ];
     }
 }

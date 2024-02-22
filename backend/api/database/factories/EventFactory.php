@@ -23,6 +23,8 @@ class EventFactory extends Factory
             'image' => $this->faker->imageUrl(null, 640, 480),
             'dateEvent' => $this->faker->dateTimeBetween('+1 week', '+1 month'),
             'status' => $this->faker->randomElement(['pending', 'approved', 'cancelled']),
+            'place_id'  => $this->faker->numberBetween(1, 10),
+
         ];
     }
 }

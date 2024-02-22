@@ -42,6 +42,7 @@ const Events = () => {
                     <thead>
                         <tr>
                             <th>Titre</th>
+                            <th>Image</th>
                             <th>Details</th>
                             <th>Date de l'évènement</th>
                             <th>Status</th>
@@ -54,10 +55,11 @@ const Events = () => {
                         {events.map((event) => (
                             <tr key={event.id}>
                                 <td>{event.title}</td>
+                                <td>{event.image}</td>
                                 <td>{event.detail}</td>
                                 <td>{event.dateEvent}</td>
                                 <td>{event.status}</td>
-                                {/* <td>{event.place.namePlace}</td> */}
+                                <td>{event.place.namePlace}</td>
                                 <td>
                                     <img
                                         src={`${BASE_URL}/${places.photoPlace}`}
