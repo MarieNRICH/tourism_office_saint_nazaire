@@ -20,6 +20,7 @@ class EventFactory extends Factory
         return [
             'title' => $this->faker->sentence,
             'detail' => $this->faker->paragraph,
+            'image' => $this->faker->imageUrl(null, 640, 480),
             'dateEvent' => $this->faker->dateTimeBetween('+1 week', '+1 month'),
             'status' => $this->faker->randomElement(['pending', 'approved', 'cancelled']),
         ];

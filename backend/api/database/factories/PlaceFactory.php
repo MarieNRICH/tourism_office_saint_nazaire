@@ -18,8 +18,10 @@ class PlaceFactory extends Factory
     public function definition(): array
     {
         return [
-            'namePlace' => $this->faker->paragraph(),
-            'longitudeLatitude' => $this->faker->latitude() . ',' . $this->faker->longitude(),
+            'namePlace' => $this->faker->words(2, true),
+            'long' => $this->faker->longitude(90 , -90),
+            'lat' => $this->faker->latitude(),
+            'photoPlace' => $this->faker->imageUrl(null, 640, 480)
         ];
     }
 }

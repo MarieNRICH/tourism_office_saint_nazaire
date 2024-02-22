@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Place extends Model
 {
     use HasFactory;
-    protected $fillable = ['namePlace', 'longitudeLatitude', 'photoPlace'];
+    protected $fillable = ['namePlace', 'long','lat','photoPlace'];
 
     public function events()
     {
